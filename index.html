@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<section class="authorization">
+    <header class="header__logo">
+        <img class="logo-img" src="img/homeWorks.png" alt="Logo">
+    </header>
+    <div class="authorization__main">
+        <form action="" id="regForm">
+            <h1 class="authorization__title" id="title">Get your free account</h1>
+            <p class="authorization__text">Try homeWorks BUSINESS free for 15 days. Downgrade to Basic (Free Forever)
+                anytime.</p>
+            <div id="label1">
+                <p class="label__text">Full name</p>
+                <label>
+                    <input class="authorization__input" type="text" name="" id="fullName">
+                </label></div>
+            <div class="formError nameHasError">Введите ваше имя</div>
+            <div class="formError nameRegError">Ваше имя может состоять только из заглавных<br> и маленьких букв на Кириллице</div>
+            <p class="label__text">Your username</p>
+            <label>
+                <input class="authorization__input" type="text" name="" id="userName">
+            </label>
+            <div class="formError fullNameHasError">Введите ваш логин</div>
+            <div class="formError fullNameRegError">Ваш логин может содержать только буквы, цифры,<br> символ подчеркивания и тире</div>
+            <div class="formError fullNameAutorError">Такой пользователь не зарегистрирован</div>
+            <div id="label2"><p class="label__text">E-mail</p>
+                <label>
+                    <input class="authorization__input" type="email" name="" id="mail">
+                </label></div>
+            <div class="formError mailHasError">Введите вашу почту</div>
+            <div class="formError mailRegError">Ваша почта введена не корректно</div>
+
+
+            <p class="label__text">Password</p>
+            <label>
+                <input class="authorization__input" type="password" name="" id="passwordOne">
+            </label>
+            <div class="formError">Введите ваш пароль</div>
+            <div class="formError passwordHasError">Ведите ваш пароль</div>
+            <div class="formError passwordRegError">Поле пароля должен содержать минимум 8 символов, среди которых есть:<br>
+            - хотя бы одна буква в верхнем регистре<br>
+            - хотя бы одна цифра<br>
+            - хотя бы один спецсимвол</div>
+            <div class="formError passwordNotRightError">Неправильно введен пароль</div>
+            <div id="label3"><p class="label__text">Repeat Password</p>
+                <label>
+                    <input class="authorization__input" type="password" name="" id="passwordTwo">
+                </label></div>
+            <div class="formError passwordRepeatHasError">Повторите ваш пароль</div>
+            <div class="formError passwordRepeatNotEqualError">Ваши пароли не совпадают</div>
+
+            <div class="authorization__checkbox" id="label4"><label>
+                <input type="checkbox" id="checkbox-agree"><span class="authorization__checkbox-span">Agree to our Terms of Service and Privacy Statement</span>
+            </label></div>
+            <div class="formError checkError">Для продолжения согласитесь</div>
+            <div class="block__btn"><button class="btn" type="submit" id="submit">Sign Up</button></div>
+            <div class="block__link"><a class="authorization__link" id="label5" href="#">Already have an account?</a></div>
+        </form>
+    </div>
+    <div class="authorization__img">
+        <img src="img/image.png" alt="Rocket">
+    </div>
+</section>
+
+<section class="popup" id="popup">
+    <div class="container__popup">
+        <header class="header__popup-logo">
+            <img class="logo-img" src="img/homeWorks.png" alt="Logo">
+        </header>
+        <h2 class="popup__title">На вашу почту выслана ссылка, перейдите по ней, чтобы завершить регистрацию</h2>
+        <button class="btn btn__popup" id="btn__popup">OK</button>
+    </div>
+</section>
+<script src="scripts/jquery-3.6.4.min.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
