@@ -112,18 +112,6 @@ $(document).ready(function () {
         localStorage.setItem('clients', JSON.stringify(clientsArray));
     }
 
-    formFields.name.onkeydown = (event) => {
-        let string = parseInt(event.key);
-        if (!isNaN(string)) {
-            event.preventDefault();
-        }
-    }
-    formFields.username.onkeydown = (event) => {
-        if (event.key === "." || event.key === ",") {
-            event.preventDefault();
-        }
-    }
-
     const onLoginSubmit = (event) => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
