@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const regForm = document.getElementById('regForm');
+$(document).ready(function () {
+    const regForm = $('#regForm');
     const link = $('#label5');
+    const authorizationInput = $('.authorization__input');
     const formFields = {
         name: $('#fullName'),
         username: $('#userName'),
@@ -8,23 +9,21 @@ document.addEventListener('DOMContentLoaded', function () {
         passwordOne: $('#passwordOne'),
         passwordTwo: $('#passwordTwo'),
         labelText: $('.label__text'),
-        check: document.getElementById('checkbox-agree'),
+        check: $('#checkbox-agree'),
     };
     const items = {
-        title: document.getElementById('title'),
+        title: $('#title'),
         text: $('.authorization__text'),
-        submit: document.getElementById('submit'),
-        popup: document.getElementById('popup'),
-        btn: document.getElementById('btn__popup'),
-        name: document.getElementById('label1'),
-        mail: document.getElementById('label2'),
-        password: document.getElementById('label3'),
-        checkLable: $('#label4')
+        submit: $('#submit'),
+        popup:$('#popup'),
+        btn: $('#btn__popup'),
+        name: $('#label1'),
+        mail: $('#label2'),
+        password: $('#label3'),
+        checkLabel: $('#label4'),
     };
-    const autorInput = $('.authorization__input');
-
     const onRegisterSubmit = (event) => {
-        autorInput.css('border-bottom', '2px solid #C6C6C4');
+        authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
 
         if (!formFields.name.val()) {
@@ -87,16 +86,16 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             return
         }
-        if (!formFields.check.checked) {
+        if (!formFields.check.is(':checked')) {
             $('.checkError').show();
             event.preventDefault();
             return
         } else {
-            items.popup.classList.add('popup__active');
+            items.popup.addClass('popup__active');
             event.preventDefault();
         }
 
-        regForm.onsubmit = onLoginSubmit;
+        regForm.submit(onLoginSubmit);
 
         let client = {};
         client.name = formFields.username.val();
@@ -111,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         clientsArray.push(client);
         localStorage.setItem('clients', JSON.stringify(clientsArray));
-        console.log(localStorage);
     }
 
     formFields.name.onkeydown = (event) => {
@@ -125,8 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
         }
     }
+
     const onLoginSubmit = (event) => {
-        autorInput.css('border-bottom', '2px solid #C6C6C4');
+        authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
         if (!formFields.username.val()) {
             formFields.username.css('border-bottom', '2px solid red');
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('.passwordNotRightError').show();
             event.preventDefault();
             return
-        } else if (!formFields.check.checked) {
+        } else if (!formFields.check.is(':checked')) {
             $('.checkError').show();
             event.preventDefault();
             return
@@ -151,9 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let clients = localStorage.getItem("clients");
         let clientsArray = JSON.parse(clients);
         let clientObject = clientsArray.find(item => item.name === formFields.username.val());
-        console.log(clientObject)
         if (!clientObject) {
-            $('.fullNameAutorError').show();
+            $('.fullNameAuthorizationError').show();
             event.preventDefault();
             return
         }
@@ -163,29 +161,29 @@ document.addEventListener('DOMContentLoaded', function () {
             return
         }
         // реализация кабинета
-        items.title.textContent = "Welcome, " + clientObject.fullName;
-        items.submit.textContent = "Exit";
+        items.title.text("Welcome, " + clientObject.fullName);
+        items.submit.text("Exit");
         items.text.remove();
         formFields.username.remove();
         formFields.passwordOne.remove();
         formFields.labelText.remove();
-        items.checkLable.remove();
+        items.checkLabel.remove();
         link.remove();
-        items.submit.addEventListener("click", backFunc);
+        items.submit.click(backFunc);
         event.preventDefault();
 
     }
 
-    regForm.onsubmit = onRegisterSubmit;
-    let func = (event) => {
-        autorInput.css('border-bottom', '2px solid #C6C6C4');
+    regForm.submit(onRegisterSubmit);
+    let authorizationWindowOpen = (event) => {
+        authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
-        items.popup.classList.remove('popup__active');
-        items.title.textContent = "Log in to the system";
-        items.submit.textContent = "Sign In";
+        items.popup.removeClass('popup__active');
+        items.title.text("Log in to the system");
+        items.submit.text("Sign In");
         link.text("Registration");
         link.css('margin-left', '185px');
-        regForm.onsubmit = onLoginSubmit;
+        regForm.submit(onLoginSubmit);
         items.name.remove();
         items.mail.remove();
         items.password.remove();
@@ -193,10 +191,10 @@ document.addEventListener('DOMContentLoaded', function () {
         formFields.passwordOne.val('');
         link.click(backFunc);
     }
-    link.click(func);
+    link.click(authorizationWindowOpen);
     let backFunc = () => {
-        window.location.reload()
+        location.reload();
     }
-    items.btn.onclick = func;
+    items.btn.click(authorizationWindowOpen);
 
 }, false);
