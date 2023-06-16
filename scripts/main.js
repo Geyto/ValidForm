@@ -2,6 +2,7 @@ $(document).ready(function () {
     const regForm = $('#regForm');
     const link = $('#label5');
     const authorizationInput = $('.authorization__input');
+    let clientObject
     const formFields = {
         name: $('#fullName'),
         username: $('#userName'),
@@ -94,9 +95,10 @@ $(document).ready(function () {
             items.popup.addClass('popup__active');
             event.preventDefault();
         }
-
         regForm.submit(onLoginSubmit);
-
+        saveClientInLocalStorage();
+    }
+    const saveClientInLocalStorage = () =>{
         let client = {};
         client.name = formFields.username.val();
         client.password = formFields.passwordOne.val();
@@ -111,7 +113,6 @@ $(document).ready(function () {
         clientsArray.push(client);
         localStorage.setItem('clients', JSON.stringify(clientsArray));
     }
-
     const onLoginSubmit = (event) => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
@@ -137,7 +138,7 @@ $(document).ready(function () {
         }
         let clients = localStorage.getItem("clients");
         let clientsArray = JSON.parse(clients);
-        let clientObject = clientsArray.find(item => item.name === formFields.username.val());
+        clientObject = clientsArray.find(item => item.name === formFields.username.val());
         if (!clientObject) {
             $('.fullNameAuthorizationError').show();
             event.preventDefault();
@@ -148,7 +149,9 @@ $(document).ready(function () {
             event.preventDefault();
             return
         }
-        // реализация кабинета
+        creationCabinetClients();
+    }
+    const creationCabinetClients = (event) =>{
         items.title.text("Welcome, " + clientObject.fullName);
         items.submit.text("Exit");
         items.text.remove();
@@ -159,11 +162,9 @@ $(document).ready(function () {
         link.remove();
         items.submit.click(backFunc);
         event.preventDefault();
-
     }
-
     regForm.submit(onRegisterSubmit);
-    let authorizationWindowOpen = (event) => {
+    const authorizationWindowOpen = () => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
         items.popup.removeClass('popup__active');
@@ -180,9 +181,8 @@ $(document).ready(function () {
         link.click(backFunc);
     }
     link.click(authorizationWindowOpen);
-    let backFunc = () => {
+    const backFunc = () => {
         location.reload();
     }
     items.btn.click(authorizationWindowOpen);
-
 }, false);
