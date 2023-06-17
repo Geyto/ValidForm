@@ -26,7 +26,6 @@ $(document).ready(function () {
     const onRegisterSubmit = (event) => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
-
         if (!formFields.name.val()) {
             formFields.name.css('border-bottom', '2px solid red');
             $('.nameHasError').show();
@@ -97,6 +96,8 @@ $(document).ready(function () {
         }
         regForm.off('submit', onRegisterSubmit);
         regForm.on('submit', onLoginSubmit);
+        formFields.check.prop('checked', false);
+
         saveClientInLocalStorage();
     }
     const saveClientInLocalStorage = () => {
