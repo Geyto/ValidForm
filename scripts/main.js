@@ -163,9 +163,7 @@ $(document).ready(function () {
         items.checkLabel.remove();
         link.remove();
         items.submit.click(backFunc);
-
     }
-    regForm.on('submit', onRegisterSubmit);
     const authorizationWindowOpen = () => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
@@ -182,11 +180,12 @@ $(document).ready(function () {
         formFields.passwordOne.val('');
         link.click(backFunc);
     }
-    link.click(authorizationWindowOpen);
     const backFunc = () => {
         console.log(1)
         location.reload();
 
     }
+    regForm.on('submit', onRegisterSubmit);
+    link.click(authorizationWindowOpen);
     items.btn.click(authorizationWindowOpen);
 }, false);
