@@ -16,7 +16,7 @@ $(document).ready(function () {
         title: $('#title'),
         text: $('.authorization__text'),
         submit: $('#submit'),
-        popup:$('#popup'),
+        popup: $('#popup'),
         btn: $('#btn__popup'),
         name: $('#label1'),
         mail: $('#label2'),
@@ -95,10 +95,11 @@ $(document).ready(function () {
             items.popup.addClass('popup__active');
             event.preventDefault();
         }
-        regForm.submit(onLoginSubmit);
+        regForm.off('submit', onRegisterSubmit);
+        regForm.on('submit', onLoginSubmit);
         saveClientInLocalStorage();
     }
-    const saveClientInLocalStorage = () =>{
+    const saveClientInLocalStorage = () => {
         let client = {};
         client.name = formFields.username.val();
         client.password = formFields.passwordOne.val();
@@ -149,9 +150,10 @@ $(document).ready(function () {
             event.preventDefault();
             return
         }
+        regForm.off('submit', onLoginSubmit);
         creationCabinetClients();
     }
-    const creationCabinetClients = (event) =>{
+    const creationCabinetClients = (event) => {
         items.title.text("Welcome, " + clientObject.fullName);
         items.submit.text("Exit");
         items.text.remove();
@@ -161,9 +163,9 @@ $(document).ready(function () {
         items.checkLabel.remove();
         link.remove();
         items.submit.click(backFunc);
-        event.preventDefault();
+
     }
-    regForm.submit(onRegisterSubmit);
+    regForm.on('submit', onRegisterSubmit);
     const authorizationWindowOpen = () => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
         $('.formError').hide();
@@ -172,7 +174,7 @@ $(document).ready(function () {
         items.submit.text("Sign In");
         link.text("Registration");
         link.css('margin-left', '185px');
-        regForm.submit(onLoginSubmit);
+        regForm.on('submit', onLoginSubmit);
         items.name.remove();
         items.mail.remove();
         items.password.remove();
@@ -182,7 +184,9 @@ $(document).ready(function () {
     }
     link.click(authorizationWindowOpen);
     const backFunc = () => {
+        console.log(1)
         location.reload();
+
     }
     items.btn.click(authorizationWindowOpen);
 }, false);
