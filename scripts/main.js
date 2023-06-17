@@ -2,7 +2,6 @@ $(document).ready(function () {
     const regForm = $('#regForm');
     const link = $('#label5');
     const authorizationInput = $('.authorization__input');
-    let clientObject
     const formFields = {
         name: $('#fullName'),
         username: $('#userName'),
@@ -97,7 +96,6 @@ $(document).ready(function () {
         regForm.off('submit', onRegisterSubmit);
         regForm.on('submit', onLoginSubmit);
         formFields.check.prop('checked', false);
-
         saveClientInLocalStorage();
     }
     const saveClientInLocalStorage = () => {
@@ -140,7 +138,7 @@ $(document).ready(function () {
         }
         let clients = localStorage.getItem("clients");
         let clientsArray = JSON.parse(clients);
-        clientObject = clientsArray.find(item => item.name === formFields.username.val());
+        let clientObject = clientsArray.find(item => item.name === formFields.username.val());
         if (!clientObject) {
             $('.fullNameAuthorizationError').show();
             event.preventDefault();
@@ -152,10 +150,10 @@ $(document).ready(function () {
             return
         }
         regForm.off('submit', onLoginSubmit);
-        creationCabinetClients();
+        creationCabinetClients(clientObject);
     }
     const creationCabinetClients = (event) => {
-        items.title.text("Welcome, " + clientObject.fullName);
+        items.title.text("Welcome, " + event.fullName);
         items.submit.text("Exit");
         items.text.remove();
         formFields.username.remove();
