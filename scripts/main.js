@@ -131,10 +131,6 @@ $(document).ready(function () {
             $('.passwordNotRightError').show();
             event.preventDefault();
             return
-        } else if (!formFields.check.is(':checked')) {
-            $('.checkError').show();
-            event.preventDefault();
-            return
         }
         let clients = localStorage.getItem("clients");
         let clientsArray = JSON.parse(clients);
@@ -172,6 +168,7 @@ $(document).ready(function () {
         link.text("Registration");
         link.css('margin-left', '185px');
         regForm.on('submit', onLoginSubmit);
+        items.checkLabel.remove();
         items.name.remove();
         items.mail.remove();
         items.password.remove();
@@ -182,7 +179,7 @@ $(document).ready(function () {
     const backFunc = () => {
         console.log(1)
         location.reload();
-
+        console.log(2)
     }
     regForm.on('submit', onRegisterSubmit);
     link.click(authorizationWindowOpen);
