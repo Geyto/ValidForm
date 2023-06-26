@@ -83,8 +83,7 @@ $(document).ready(function () {
             items.popup.addClass('popup__active');
 
         }
-        regForm.off('submit', onRegisterSubmit);
-        regForm.on('submit', onLoginSubmit);
+        regForm.off().on('submit', onLoginSubmit);
         formFields.check.prop('checked', false);
         saveClientInLocalStorage();
     }
@@ -116,7 +115,7 @@ $(document).ready(function () {
             $('.passwordNotRightError').show();
             return
         }
-        regForm.off('submit', onLoginSubmit);
+        regForm.off();
         creationCabinetClients(clientObject);
     }
     const saveClientInLocalStorage = () => {
@@ -143,7 +142,7 @@ $(document).ready(function () {
         formFields.labelText.remove();
         items.checkLabel.remove();
         link.remove();
-        items.submit.click(backFunc);
+        regForm.on('submit', backFunc)
     }
     const authorizationWindowOpen = () => {
         authorizationInput.css('border-bottom', '2px solid #C6C6C4');
@@ -153,21 +152,20 @@ $(document).ready(function () {
         items.submit.text("Sign In");
         link.text("Registration");
         link.css('margin-left', '185px');
-        regForm.on('submit', onLoginSubmit);
+        regForm.off().on('submit', onLoginSubmit);
         items.checkLabel.remove();
         items.name.remove();
         items.mail.remove();
         items.password.remove();
         formFields.username.val('');
         formFields.passwordOne.val('');
-        link.click(backFunc);
+        link.on('click',backFunc);
     }
-    const backFunc = () => {
-        console.log(1)
+    const backFunc = (event) => {
+        event.preventDefault();
         location.reload();
-        console.log(2)
     }
     regForm.on('submit', onRegisterSubmit);
-    link.click(authorizationWindowOpen);
-    items.btn.click(authorizationWindowOpen);
+    link.on('click',authorizationWindowOpen);
+    items.btn.on('click',authorizationWindowOpen);
 }, false);
